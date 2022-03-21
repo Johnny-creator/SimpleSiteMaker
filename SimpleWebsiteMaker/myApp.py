@@ -22,10 +22,14 @@ def results():
 
     webTemplate = webTemplate.format(fullName = fullName1, firstSect = firstSect1, secondSect = secondSect1, thirdSect = thirdSect1, fourthSect = fourthSect1, firstText = firstText1, secondText = secondText1, thirdText = thirdText1, fourthText = fourthText1)
 
-    newWebsite = open("tempSiteStorage/" + fullName1 + ".html", "w")
+    newWebsite = open("templates/tempSiteStorage/" + fullName1 + ".html", "w")
     newWebsite.write(webTemplate)
+    newWebsite.close()
+    
 
-    return send_file("tempSiteStorage/" + fullName1 + ".html", as_attachment=True)
+    # return render_template('tempSiteStorage/' + fullName1 + '.html')
+
+    return send_file("templates/tempSiteStorage/" + fullName1 + ".html", as_attachment=True)
 
     # return render_template("results.html", testList = [fullName1, firstSect1, secondSect1, thirdSect1, fourthSect1, firstText1, secondText1, thirdText1, fourthText1])
 
