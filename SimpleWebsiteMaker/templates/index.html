@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <main>
+        <form action="{{url_for('results')}}">
+            <label for="fullName">Full Name: </label>
+            <input type="text" name="fullName" id="fullName">
+            <label for="firstsect">Title For First Section</label>
+            <input type="text" name="firstSect" id="firstSect">
+            <label for="secondSect">Title For Second Section</label>
+            <input type="text" name="secondSect" id="secondSect">
+            <label for="thirdsect">Title For Third Section</label>
+            <input type="text" name="thirdSect" id="thirdSect">
+            <label for="fourthSect">Title For Fourth Section</label>
+            <input type="text" name="fourthSect" id="fourthSect">
+            <label for="firstText">Text For First Section</label>
+            <textarea id="firstText" name="firstText" rows="8" cols="30"></textarea>
+            <label for="secondText">Text For Second Section</label>
+            <textarea id="secondText" name="secondText" rows="8" cols="30"></textarea>
+            <label for="thirdtext">Text For Third Section</label>
+            <textarea id="thirdText" name="thirdText" rows="8" cols="30"></textarea>
+            <label for="fourthText">Text For Fourth Section</label>
+            <textarea id="fourthText" name="fourthText" rows="8" cols="30"></textarea>
+            <input type="submit" value="Generate Site!">
+        </form>
+    </main>
+{% endblock %}
