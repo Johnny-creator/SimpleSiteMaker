@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <form action="{{url_for('viewPage')}}" target="_blank">
+        <input type="submit" value="View page in Web Browser">
+    </form>
+    <form action="{{url_for('downloadPage')}}">
+        <input type="submit" value="Download the HTML file">
+    </form>
+
+</main>
+{% endblock %}

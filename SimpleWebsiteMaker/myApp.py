@@ -1,16 +1,21 @@
 from flask import Flask, render_template, request, send_file
 app = Flask(__name__)
 
+fullNameHolder = ''
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
 @app.route("/results")
 def results():
+    global fullNameHolder
+
     f = open("webTemplates/simpleBox.txt", "r")
     webTemplate = f.read()
 
     fullName1 = request.args.get("fullName")
+    fullNameHolder = fullName1
     firstSect1 =  request.args.get("firstSect")
     secondSect1 =  request.args.get("secondSect")
     thirdSect1 =  request.args.get("thirdSect")
@@ -29,9 +34,18 @@ def results():
 
     # return render_template('tempSiteStorage/' + fullName1 + '.html')
 
-    return send_file("templates/tempSiteStorage/" + fullName1 + ".html", as_attachment=True)
+    return render_template("selection.html")
 
     # return render_template("results.html", testList = [fullName1, firstSect1, secondSect1, thirdSect1, fourthSect1, firstText1, secondText1, thirdText1, fourthText1])
+
+@app.route("/viewPage")
+def viewPage():
+    return render_template("tempSiteStorage/" + fullNameHolder + ".html")
+    
+
+@app.route("/downloadPage")
+def downloadPage():
+    return send_file("templates/tempSiteStorage/" + fullNameHolder + ".html", as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
