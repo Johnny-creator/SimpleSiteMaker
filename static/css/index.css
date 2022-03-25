@@ -1,0 +1,11 @@
+#textbox-labels > * {
+    display: block;
+}
+
+#textarea-labels > * {
+    display: inline-block;
+}
+
+#textarea-labels div > * {
+    display: block;
+}

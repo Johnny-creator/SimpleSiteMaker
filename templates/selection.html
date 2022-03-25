@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% block header %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/selection.css') }}">
+{% endblock %}
+
+<main>
+    <div>
+        <form action="{{url_for('viewPage')}}" target="_blank">
+            <input type="submit" value="View page in Web Browser">
+        </form>
+        <form action="{{url_for('downloadPage')}}">
+            <input type="submit" value="Download the HTML file">
+        </form>
+    </div>
+</main>
+{% endblock %}
