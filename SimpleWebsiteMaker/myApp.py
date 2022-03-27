@@ -1,51 +1,76 @@
-from flask import Flask, render_template, request, send_file
-app = Flask(__name__)
+import os
+from flask import Flask, render_template, request, send_file, session, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import Form, StringField, SubmitField, TextAreaField, FileField
+from wtforms.validators import DataRequired, Length
+from flask_uploads import configure_uploads, IMAGES, UploadSet
 
-fullNameHolder = ''
 
-@app.route("/")
+class WebsiteForm(FlaskForm):
+    image = FileField("image")
+    fullName1 = StringField("Full name", validators=[Length(min=4, max=25)])
+    firstSect1 = StringField("First Section", validators=[Length(min=4, max=25)])
+    secondSect1 = StringField("Section Section", validators=[Length(min=4, max=25)])
+    thirdSect1 = StringField("Third Section", validators=[Length(min=4, max=25)])
+    fourthSect1 = StringField("Fourth Section", validators=[Length(min=4, max=25)])
+    firstText1 = TextAreaField("First Text", validators=[Length(min=4, max=25)])
+    secondText1 = TextAreaField("Second Text", validators=[Length(min=4, max=25)])
+    thirdText1 = TextAreaField("Third Text", validators=[Length(min=4, max=25)])
+    fourthText1 = TextAreaField("Fourth Text", validators=[Length(min=4, max=25)])
+    submit = SubmitField("Generate Website")
+
+
+app = Flask(__name__, instance_path="C:\\Users\\Sheldon\\Documents\\simpleSiteMaker\\SimpleWebsiteMaker\\images")
+
+app.config["SECRET_KEY"] = "superSecretKey"
+app.config["UPLOADED_IMAGES_DEST"] = "userImages"
+
+images = UploadSet("images", IMAGES)
+configure_uploads(app, images)
+
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    form = WebsiteForm()
+
+    if form.validate_on_submit():
+        session["fullName1"] =  form.fullName1.data
+        session["firstSect1"] = form.firstSect1.data
+        session["secondSect1"] = form.secondSect1.data
+        session["thirdSect1"] = form.thirdSect1.data
+        session["fourthSect1"] = form.fourthSect1.data
+        session["firstText1"] = form.firstText1.data
+        session["secondText1"] = form.secondText1.data
+        session["thirdText1"] = form.thirdText1.data
+        session["fourthText1"] = form.fourthText1.data
+
+        # Save the image from the form
+        images.save(form.image.data, name=session["fullName1"].replace(" ", "") + ".")
+
+        return redirect(url_for("results"))
+    
+    return render_template("index.html", form=form)
 
 @app.route("/results")
 def results():
-    global fullNameHolder
-
     f = open("webTemplates/simpleBox.txt", "r")
     webTemplate = f.read()
 
-    fullName1 = request.args.get("fullName")
-    fullNameHolder = fullName1
-    firstSect1 =  request.args.get("firstSect")
-    secondSect1 =  request.args.get("secondSect")
-    thirdSect1 =  request.args.get("thirdSect")
-    fourthSect1 =  request.args.get("fourthSect")
-    firstText1 =  request.args.get("firstText")
-    secondText1 =  request.args.get("secondText")
-    thirdText1 =  request.args.get("thirdText")
-    fourthText1 =  request.args.get("fourthText")
+    webTemplate = webTemplate.format(fullName = session["fullName1"], firstSect = session["firstSect1"], secondSect = session["secondSect1"], thirdSect = session["thirdSect1"], fourthSect = session["fourthSect1"], firstText = session["firstText1"], secondText = session["secondText1"], thirdText = session["thirdText1"], fourthText = session["fourthText1"])
 
-    webTemplate = webTemplate.format(fullName = fullName1, firstSect = firstSect1, secondSect = secondSect1, thirdSect = thirdSect1, fourthSect = fourthSect1, firstText = firstText1, secondText = secondText1, thirdText = thirdText1, fourthText = fourthText1)
-
-    newWebsite = open("templates/tempSiteStorage/" + fullName1 + ".html", "w")
+    newWebsite = open("templates/tempSiteStorage/" + session["fullName1"] + ".html", "w")
     newWebsite.write(webTemplate)
     newWebsite.close()
-    
-
-    # return render_template('tempSiteStorage/' + fullName1 + '.html')
 
     return render_template("selection.html")
 
-    # return render_template("results.html", testList = [fullName1, firstSect1, secondSect1, thirdSect1, fourthSect1, firstText1, secondText1, thirdText1, fourthText1])
-
 @app.route("/viewPage")
 def viewPage():
-    return render_template("tempSiteStorage/" + fullNameHolder + ".html")
+    return render_template("tempSiteStorage/" + session["fullName1"] + ".html")
     
 
 @app.route("/downloadPage")
 def downloadPage():
-    return send_file("templates/tempSiteStorage/" + fullNameHolder + ".html", as_attachment=True)
+    return send_file("templates/tempSiteStorage/" + session["fullName1"] + ".html", as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
