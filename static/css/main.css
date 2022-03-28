@@ -1,3 +1,8 @@
+body {
+    background-color: var(--backgroundColour);
+    color: var(--textColour);
+}
+
 header {
     background-color: #222f3e;
 }
@@ -22,3 +27,4 @@ label {
     padding-right: 0.5em;
     padding-left: 0.5em;
 }
+
