@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
 from flask_wtf import FlaskForm
-from wtforms import Form, StringField, SubmitField, TextAreaField, FileField
+from wtforms import Form, StringField, SubmitField, TextAreaField, FileField, BooleanField
 from wtforms.validators import DataRequired, Length
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 
