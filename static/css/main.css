@@ -1,0 +1,24 @@
+header {
+    background-color: #222f3e;
+}
+
+header a {
+    display: inline-block;
+}
+
+header a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5em;
+}
+
+label {
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
