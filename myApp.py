@@ -1,10 +1,13 @@
+import os
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
 from flask_wtf import FlaskForm
-from wtforms import Form, StringField, SubmitField, TextAreaField
+from wtforms import Form, StringField, SubmitField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length
+from flask_uploads import configure_uploads, IMAGES, UploadSet
 
 
 class WebsiteForm(FlaskForm):
+    image = FileField("image")
     fullName1 = StringField("Full name", validators=[Length(min=4, max=25)])
     firstSect1 = StringField("First Section", validators=[Length(min=4, max=25)])
     secondSect1 = StringField("Section Section", validators=[Length(min=4, max=25)])
@@ -17,11 +20,13 @@ class WebsiteForm(FlaskForm):
     submit = SubmitField("Generate Website")
 
 
-app = Flask(__name__)
+app = Flask(__name__, instance_path="C:\\Users\\Sheldon\\Documents\\simpleSiteMaker\\SimpleWebsiteMaker\\images")
 
 app.config["SECRET_KEY"] = "superSecretKey"
+app.config["UPLOADED_IMAGES_DEST"] = "userImages"
 
-fullNameHolder = ''
+images = UploadSet("images", IMAGES)
+configure_uploads(app, images)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -29,7 +34,6 @@ def index():
 
     if form.validate_on_submit():
         session["fullName1"] =  form.fullName1.data
-        session["fullNameHolder"] = form.fullName1.data
         session["firstSect1"] = form.firstSect1.data
         session["secondSect1"] = form.secondSect1.data
         session["thirdSect1"] = form.thirdSect1.data
@@ -39,7 +43,8 @@ def index():
         session["thirdText1"] = form.thirdText1.data
         session["fourthText1"] = form.fourthText1.data
 
-        print("Ligma balls")
+        # Save the image from the form
+        images.save(form.image.data, name=session["fullName1"].replace(" ", "") + ".")
 
         return redirect(url_for("results"))
     
