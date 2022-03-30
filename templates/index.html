@@ -9,8 +9,6 @@
         <div>
             <form method="post" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
-                
-                {{ form.image }}
 
                 {{ form.fullName1.label }} {{ form.fullName1 }}
 
@@ -22,47 +20,21 @@
 
                 {{ form.fourthSect1.label }} {{ form.fourthSect1 }}
 
-                {{ form.firstText1.label }} {{ form.firstText1 }}
+                <br/>
+
+                {{ form.firstText1.label }} {{ form.firstText1(rows="5") }}
                 
-                {{ form.secondText1.label }} {{ form.secondText1 }}
+                {{ form.secondText1.label }} {{ form.secondText1(rows="5") }}
                 
-                {{ form.thirdText1.label }} {{ form.thirdText1 }}
+                {{ form.thirdText1.label }} {{ form.thirdText1(rows="5") }}
                 
-                {{ form.fourthText1.label }} {{ form.fourthText1 }}
+                {{ form.fourthText1.label }} {{ form.fourthText1(rows="5") }}
+
+                <br/>
+                
+                {{ form.image }}
 
                 {{ form.submit() }}
-                <!-- <div id="textbox-labels">
-                    <label for="fullName">Full Name: </label>
-                    <input type="text" name="fullName" id="fullName">
-                    <label for="firstsect">Title For First Section</label>
-                    <input type="text" name="firstSect" id="firstSect">
-                    <label for="secondSect">Title For Second Section</label>
-                    <input type="text" name="secondSect" id="secondSect">
-                    <label for="thirdsect">Title For Third Section</label>
-                    <input type="text" name="thirdSect" id="thirdSect">
-                    <label for="fourthSect">Title For Fourth Section</label>
-                    <input type="text" name="fourthSect" id="fourthSect">
-                </div>
-
-                <div id="textarea-labels">
-                    <div>
-                        <label for="firstText">Text For First Section</label>
-                        <textarea id="firstText" name="firstText" rows="8" cols="30"></textarea>
-                    </div>
-                    <div>
-                        <label for="secondText">Text For Second Section</label>
-                        <textarea id="secondText" name="secondText" rows="8" cols="30"></textarea>
-                    </div>
-                    <div>
-                        <label for="thirdtext">Text For Third Section</label>
-                        <textarea id="thirdText" name="thirdText" rows="8" cols="30"></textarea>
-                    </div>
-                    <div>
-                        <label for="fourthText">Text For Fourth Section</label>
-                        <textarea id="fourthText" name="fourthText" rows="8" cols="30"></textarea>
-                    </div>
-                </div>
-                <input type="submit" value="Generate Site!"> -->
             </form>
         </div>
     </main>
