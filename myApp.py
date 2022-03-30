@@ -13,10 +13,10 @@ class WebsiteForm(FlaskForm):
     secondSect1 = StringField("Section Section", validators=[Length(min=4, max=25)])
     thirdSect1 = StringField("Third Section", validators=[Length(min=4, max=25)])
     fourthSect1 = StringField("Fourth Section", validators=[Length(min=4, max=25)])
-    firstText1 = TextAreaField("First Text", validators=[Length(min=4, max=25)])
-    secondText1 = TextAreaField("Second Text", validators=[Length(min=4, max=25)])
-    thirdText1 = TextAreaField("Third Text", validators=[Length(min=4, max=25)])
-    fourthText1 = TextAreaField("Fourth Text", validators=[Length(min=4, max=25)])
+    firstText1 = TextAreaField("First Text", validators=[Length(min=4)])
+    secondText1 = TextAreaField("Second Text", validators=[Length(min=4)])
+    thirdText1 = TextAreaField("Third Text", validators=[Length(min=4)])
+    fourthText1 = TextAreaField("Fourth Text", validators=[Length(min=4)])
     submit = SubmitField("Generate Website")
 
 
