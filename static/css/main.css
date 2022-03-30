@@ -30,37 +30,10 @@ form {
   margin: 0;
 }
 
-label {
-  padding: 0;
-  margin: 0;
-}
-
-input {
-  max-width: 300px;
-  width: 90vw;
-  margin: 0 auto;
-}
-
-textarea {
-  min-width: 195px;
-  width: 20vw;
-}
-
-#image {
-  width: 100%;
-}
-
 #flex {
   display: flex;
   flex-wrap: wrap;
 }
 
-#flex label {
-  text-align: left;
-}
 
-.textGroup {
-  display: flex;
-  flex-direction: column;
-}
 
