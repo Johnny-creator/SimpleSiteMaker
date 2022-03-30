@@ -1,45 +1,66 @@
 body {
-    background-color: var(--backgroundColour);
-    color: var(--textColour);
+  background-color: var(--backgroundColour);
+  color: var(--textColour);
 }
 
 header {
-    background-color: #222f3e;
+  background-color: #222f3e;
 }
 
 header a {
-    display: inline-block;
+  display: inline-block;
 }
 
 header a:hover {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 div {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    padding: 0.5em;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5em;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
 }
 
 label {
-    padding: 0;
-    margin: 0;
-    text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  max-width: 300px;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+textarea {
+  min-width: 195px;
+  width: 20vw;
 }
 
 #image {
-    width: 100%;
+  width: 100%;
 }
 
-@media only screen and (min-width: 340px) {
-    body {
-        
-    }
+#flex {
+  display: flex;
+  flex-wrap: wrap;
 }
+
+#flex label {
+  text-align: left;
+}
+
+.textGroup {
+  display: flex;
+  flex-direction: column;
+}
+
