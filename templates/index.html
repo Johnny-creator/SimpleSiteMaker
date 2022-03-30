@@ -8,33 +8,43 @@
     <main>
         <div>
             <form method="post" enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
+                    {{ form.hidden_tag() }}
+                        
+                    {{ form.fullName1.label }} {{ form.fullName1 }}
 
-                {{ form.fullName1.label }} {{ form.fullName1 }}
+                    {{ form.firstSect1.label }} {{ form.firstSect1  }}
 
-                {{ form.firstSect1.label }} {{ form.firstSect1  }}
+                    {{ form.secondSect1.label }} {{ form.secondSect1 }}
 
-                {{ form.secondSect1.label }} {{ form.secondSect1 }}
+                    {{ form.thirdSect1.label }} {{ form.thirdSect1 }}
 
-                {{ form.thirdSect1.label }} {{ form.thirdSect1 }}
+                    {{ form.fourthSect1.label }} {{ form.fourthSect1 }}
 
-                {{ form.fourthSect1.label }} {{ form.fourthSect1 }}
+                    <div id="flex">
+                        <div class="textGroup">
+                            {{ form.firstText1.label }} {{ form.firstText1(rows="7") }}
+                        </div>
 
-                <br/>
+                        <div class="textGroup">
+                            {{ form.secondText1.label }} {{ form.secondText1(rows="7") }}
+                        </div>
 
-                {{ form.firstText1.label }} {{ form.firstText1(rows="5") }}
+                        <div class="textGroup">
+                            {{ form.thirdText1.label }} {{ form.thirdText1(rows="7") }}
+                        </div>    
+                        
+                        <div class="textGroup">
+                            {{ form.fourthText1.label }} {{ form.fourthText1(rows="7") }}
+                        </div>
+                    </div>
+
+                        <br/>
+                    
+                    {{ form.image }}
+
+                    {{ form.submit() }}
                 
-                {{ form.secondText1.label }} {{ form.secondText1(rows="5") }}
-                
-                {{ form.thirdText1.label }} {{ form.thirdText1(rows="5") }}
-                
-                {{ form.fourthText1.label }} {{ form.fourthText1(rows="5") }}
-
-                <br/>
-                
-                {{ form.image }}
-
-                {{ form.submit() }}
+            </div>
             </form>
         </div>
     </main>
