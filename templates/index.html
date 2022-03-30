@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block header %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -43,8 +42,6 @@
                     {{ form.image }}
 
                     {{ form.submit() }}
-                
-            </div>
             </form>
         </div>
     </main>
