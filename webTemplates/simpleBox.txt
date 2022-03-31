@@ -81,8 +81,7 @@
 <body>
 
     <header>
-        <h1>This is a test for the header</h1>
-        <h1>Picture will go here eventually</h1>
+        <img src="userImage.jpg" width="100">
         <h1>{fullName}</h1>
     </header>
 

@@ -1,9 +1,12 @@
 import os
+import shutil
+from os.path import basename
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import Form, StringField, SubmitField, TextAreaField, FileField, BooleanField
 from wtforms.validators import DataRequired, Length
 from flask_uploads import configure_uploads, IMAGES, UploadSet
+from zipfile import ZipFile
 
 
 class WebsiteForm(FlaskForm):
@@ -20,7 +23,7 @@ class WebsiteForm(FlaskForm):
     submit = SubmitField("Generate Website")
 
 
-app = Flask(__name__, instance_path="C:\\Users\\Sheldon\\Documents\\simpleSiteMaker\\SimpleWebsiteMaker\\images")
+app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "superSecretKey"
 app.config["UPLOADED_IMAGES_DEST"] = "userImages"
@@ -30,6 +33,7 @@ configure_uploads(app, images)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+
     form = WebsiteForm()
 
     if form.validate_on_submit():
@@ -43,8 +47,20 @@ def index():
         session["thirdText1"] = form.thirdText1.data
         session["fourthText1"] = form.fourthText1.data
 
-        # Save the image from the form
-        images.save(form.image.data, name=session["fullName1"].replace(" ", "") + ".")
+        # Make directory for the users website
+        try:
+            os.mkdir("templates/tempSiteStorage/" + session["fullName1"])
+        except:
+            shutil.rmtree("templates/tempSiteStorage/" + session["fullName1"])
+            os.mkdir("templates/tempSiteStorage/" + session["fullName1"])
+
+        # Save the image from the form to a temporary directory
+        images.save(form.image.data, name="userImage.jpg")
+
+        # Move the image to the users directory
+        src_path = r"userImages/userImage.jpg"
+        dst_path = r"templates/tempSiteStorage/" + session["fullName1"]
+        shutil.move(src_path, dst_path)
 
         return redirect(url_for("results"))
     
@@ -57,7 +73,7 @@ def results():
 
     webTemplate = webTemplate.format(fullName = session["fullName1"], firstSect = session["firstSect1"], secondSect = session["secondSect1"], thirdSect = session["thirdSect1"], fourthSect = session["fourthSect1"], firstText = session["firstText1"], secondText = session["secondText1"], thirdText = session["thirdText1"], fourthText = session["fourthText1"])
 
-    newWebsite = open("templates/tempSiteStorage/" + session["fullName1"] + ".html", "w")
+    newWebsite = open("templates/tempSiteStorage/" + session["fullName1"] + "/index.html", "w")
     newWebsite.write(webTemplate)
     newWebsite.close()
 
@@ -65,12 +81,23 @@ def results():
 
 @app.route("/viewPage")
 def viewPage():
-    return render_template("tempSiteStorage/" + session["fullName1"] + ".html")
+    return render_template("tempSiteStorage/" + session["fullName1"] + "/index.html")
+    # return render_template("tempSiteStorage/test.html")
     
 
 @app.route("/downloadPage")
 def downloadPage():
-    return send_file("templates/tempSiteStorage/" + session["fullName1"] + ".html", as_attachment=True)
+    try:
+        with ZipFile(session["fullName1"] + ".zip", "w") as zipSite:
+            for folderName, subfolders, filenames in os.walk("templates\\tempSiteStorage\\" + session["fullName1"]):
+                for filename in filenames:
+                    filePath = os.path.join(folderName, filename)
+                    zipSite.write(filePath, basename(filePath))
+    except:
+        # Remove original file
+        os.remove(session["fullName1"] + ".zip")
+
+    return send_file(session["fullName1"] + ".zip", as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
