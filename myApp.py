@@ -2,30 +2,13 @@ import os
 import shutil
 from os.path import basename
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
-from flask_wtf import FlaskForm
-from wtforms import Form, StringField, SubmitField, TextAreaField, FileField, BooleanField
-from wtforms.validators import DataRequired, Length
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 from zipfile import ZipFile
-
-
-class WebsiteForm(FlaskForm):
-    image = FileField("image")
-    fullName1 = StringField("Full name", validators=[Length(min=4, max=25)])
-    firstSect1 = StringField("First Section", validators=[Length(min=4, max=25)])
-    secondSect1 = StringField("Section Section", validators=[Length(min=4, max=25)])
-    thirdSect1 = StringField("Third Section", validators=[Length(min=4, max=25)])
-    fourthSect1 = StringField("Fourth Section", validators=[Length(min=4, max=25)])
-    firstText1 = TextAreaField("First Text", validators=[Length(min=4)])
-    secondText1 = TextAreaField("Second Text", validators=[Length(min=4)])
-    thirdText1 = TextAreaField("Third Text", validators=[Length(min=4)])
-    fourthText1 = TextAreaField("Fourth Text", validators=[Length(min=4)])
-    submit = SubmitField("Generate Website")
-
+from webForms import WebsiteForm
 
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "superSecretKey"
+app.config.from_pyfile('config.py')
 app.config["UPLOADED_IMAGES_DEST"] = "userImages"
 
 images = UploadSet("images", IMAGES)
