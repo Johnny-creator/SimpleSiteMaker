@@ -5,6 +5,9 @@ body {
 
 header {
   background-color: #222f3e;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
 }
 
 header a {
