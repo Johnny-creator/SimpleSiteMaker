@@ -17,7 +17,10 @@
 
     <header>
         <a href="{{url_for('index')}}"><h1>Simple Site Maker</h1></a>
-        <button id="toggleThemeBtn">Toggle Light/Dark</button>
+        <div id="headerButtons">
+            <a href="{{url_for('userLogin')}}" class="btn btn-primary">Login</a>
+            <button id="toggleThemeBtn">Toggle Light/Dark</button>
+        </div>
     </header>
 
     {% block content %}
