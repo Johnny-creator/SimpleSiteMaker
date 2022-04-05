@@ -1,5 +1,4 @@
 import os
-from re import L
 import shutil
 from os.path import basename
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
