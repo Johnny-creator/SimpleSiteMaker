@@ -4,7 +4,7 @@ from os.path import basename
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 from zipfile import ZipFile
-from webForms import pageCreationForm, userLoginForm
+from webForms import createUserForm, pageCreationForm, userLoginForm
 
 app = Flask(__name__)
 
@@ -82,7 +82,15 @@ def userLogin():
         return redirect(url_for("index"))
 
     return render_template("userLogin.html", form=form)
+
+@app.route("/createUser", methods=["GET", "POST"])
+def createUser():
+    form = createUserForm()
+
+    if form.validate_on_submit():
+        return redirect(url_for("index"))
     
+    return render_template("createUser.html", form=form)
 
 @app.route("/downloadPage")
 def downloadPage():
