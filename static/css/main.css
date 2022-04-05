@@ -38,6 +38,11 @@ form {
   flex-wrap: wrap;
 }
 
+#headerButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
 #toggleThemeBtn {
   border-radius: 1em;
 }
