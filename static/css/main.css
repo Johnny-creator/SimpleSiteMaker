@@ -43,6 +43,10 @@ form {
   justify-content: flex-end;
 }
 
+#headerButtons a {
+  margin: 0 auto;
+}
+
 #toggleThemeBtn {
   border-radius: 1em;
 }
