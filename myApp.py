@@ -16,6 +16,10 @@ configure_uploads(app, images)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    return render_template("index.html")
+
+@app.route("/pageCreator", methods=["GET", "POST"])
+def pageCreator():
     nameNoSpace = ""
     form = WebsiteForm()
 
