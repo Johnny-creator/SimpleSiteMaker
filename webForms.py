@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, FileField, BooleanField
-from wtforms.validators import Length, DataRequired
+from wtforms import StringField, SubmitField, TextAreaField, FileField, PasswordField, ValidationError
+from wtforms.validators import Length, DataRequired, EqualTo
+from models import User
 
 class pageCreationForm(FlaskForm):
     image = FileField("image", validators=[DataRequired()])
@@ -17,12 +18,16 @@ class pageCreationForm(FlaskForm):
     submit2 = SubmitField("Cancel")
 
 class userLoginForm(FlaskForm):
-    userName = StringField("User Name", validators=[Length(min=3, max=30), DataRequired()])
-    passWord = StringField("Password", validators=[Length(min=5, max=50), DataRequired()])
+    userName = StringField("User Name", validators=[DataRequired()])
+    passWord = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
 class createUserForm(FlaskForm):
     userName = StringField("User Name", validators=[Length(min=3, max=30), DataRequired()])
-    passWord = StringField("Password", validators=[Length(min=5, max=50), DataRequired()])
-    confirmPassWord = StringField("Password", validators=[Length(min=5, max=50), DataRequired()])
+    passWord = PasswordField("Password", validators=[Length(min=5, max=50), DataRequired(), EqualTo("confirmPassWord")])
+    confirmPassWord = PasswordField("Password", validators=[Length(min=5, max=50), DataRequired()])
     submit = SubmitField("Create User")
+
+    def validate_username(self, field):
+        if User.query.filter_by(username=self.userName.data).first():
+            raise ValidationError("Username is taken!")

@@ -1,15 +1,34 @@
 import os
 import shutil
 from os.path import basename
-from flask import Flask, render_template, request, send_file, session, redirect, url_for
+from flask import Flask, render_template, request, send_file, session, redirect, url_for, flash
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 from zipfile import ZipFile
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager, login_user, login_required, logout_user
 from webForms import createUserForm, pageCreationForm, userLoginForm
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import User
+
+# Create a login manager object
+login_manager = LoginManager()
 
 app = Flask(__name__)
 
 app.config.from_pyfile('config.py')
 app.config["UPLOADED_IMAGES_DEST"] = "userImages"
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "data.sqlite")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# Database configuration
+db = SQLAlchemy(app)
+Migrate(app, db)
+
+# Pass app into the login manager and send users to login view
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
 images = UploadSet("images", IMAGES)
 configure_uploads(app, images)
@@ -73,24 +92,32 @@ def results():
 def viewPage():
     return render_template("tempSiteStorage/" + session["fullName1"].replace(" ", "") + "/index.html")
     # return render_template("tempSiteStorage/test.html")
-    
+
+
 @app.route("/userLogin", methods=["GET", "POST"])
 def userLogin():
 
     form = userLoginForm()
-    if form.validate_on_submit():
-        return redirect(url_for("index"))
+    # Grab the user from our User Models table
+    user = User.query.filter_by(email=form.email.data).first()
 
-    return render_template("userLogin.html", form=form)
+    # Check that the user was supplied and the password is right
+    if user.check_password(form.password.data) and user is not None:
+        # Log in the user
+        login_user(user)
+        flash("Logged in successfully")
 
-@app.route("/createUser", methods=["GET", "POST"])
-def createUser():
-    form = createUserForm()
+        # If a user was trying to visit a page that requires a login
+        # flask saves that URL as 'next'.
+        next = request.args.get('next')
 
-    if form.validate_on_submit():
-        return redirect(url_for("index"))
-    
-    return render_template("createUser.html", form=form)
+        # So let's now check if that next exists, otherwise we'll go to
+        # the welcome page.
+        if next == None or not next[0]=='/':
+            next = url_for('welcome_user')
+
+        return redirect(next)
+    return render_template("login.html", form=form)
 
 @app.route("/downloadPage")
 def downloadPage():
