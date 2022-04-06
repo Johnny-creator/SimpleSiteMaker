@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block header %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/pageCreator.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pageCreator.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -43,6 +43,7 @@
                     {{ form.image }}
 
                     {{ form.submit() }}
+                    <p><a href="{{url_for('index')}}"> Cancel </a></p>
             </form>
         </div>
     </main>
