@@ -1,0 +1,11 @@
+input {
+    max-width: 300px;
+    min-width: 210px;
+    width: 60vw;
+    margin: 0 auto;
+  }
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }

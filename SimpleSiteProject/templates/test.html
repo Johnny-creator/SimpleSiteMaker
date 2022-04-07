@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/selection.css') }}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <ul>
+        <li>{{session["fullName1"]}}</li>
+    </ul>
+</main>
+{% endblock %}
