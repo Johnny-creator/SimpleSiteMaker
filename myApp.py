@@ -6,6 +6,7 @@ from os.path import basename
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 from zipfile import ZipFile
 
+
 from SimpleSiteProject import app, db, images
 from flask import render_template, request, send_file, session, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user
@@ -39,17 +40,17 @@ def pageCreator():
 
         # Make directory for the users website
         try:
-            os.mkdir("templates/tempSiteStorage/" + session["fullName1"].replace(" ", ""))
+            os.mkdir("SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", ""))
         except:
-            shutil.rmtree("templates/tempSiteStorage/" + session["fullName1"].replace(" ", ""))
-            os.mkdir("templates/tempSiteStorage/" + session["fullName1"].replace(" ", ""))
+            shutil.rmtree("SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", ""))
+            os.mkdir("SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", ""))
 
         # Save the image from the form to a temporary directory
         images.save(form.image.data, name="userImage.jpg")
 
         # Move the image to the users directory
         src_path = r"userImages/userImage.jpg"
-        dst_path = r"templates/tempSiteStorage/" + session["fullName1"].replace(" ", "")
+        dst_path = r"SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", "")
         shutil.move(src_path, dst_path)
 
         return redirect(url_for("results"))
@@ -70,7 +71,7 @@ def results():
 
     webTemplate = webTemplate.format(fullName = session["fullName1"], firstSect = session["firstSect1"], secondSect = session["secondSect1"], thirdSect = session["thirdSect1"], fourthSect = session["fourthSect1"], firstText = session["firstText1"], secondText = session["secondText1"], thirdText = session["thirdText1"], fourthText = session["fourthText1"])
 
-    newWebsite = open("templates/tempSiteStorage/" + session["fullName1"].replace(" ", "") + "/index.html", "w")
+    newWebsite = open("SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", "") + "/index.html", "w")
     newWebsite.write(webTemplate)
     newWebsite.close()
 
@@ -138,7 +139,7 @@ def downloadPage():
 
 @app.route("/userFiles")
 def userFiles():
-    dirPath = "c:\\Users\\Sheldon\\Documents\\SimpleSiteMaker2\\SimpleSiteProject\\siteStorage"
+    dirPath = "e:\\Python Programs\\SimpleSiteMaker\\SimpleSiteProject\\siteStorage"
     files = os.listdir(dirPath)
 
     return render_template("userFiles.html", path=dirPath, files=files)
