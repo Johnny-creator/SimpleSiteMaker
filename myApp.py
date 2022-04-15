@@ -174,4 +174,4 @@ def userDownload(selectedFile):
     return send_file(dirPath + file, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
