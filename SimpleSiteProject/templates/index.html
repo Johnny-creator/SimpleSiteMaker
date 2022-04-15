@@ -9,14 +9,17 @@
     <h1> Welcome to Simple Site Maker</h1>
     <p> Choose one of the following templates to start building your website</p>
     <div>
-        
-        <form>
-
-        </form>
-
-        <form>
-            
-        </form>
+        <div style="display: flex; flex-direction: column; margin-top: 15px;">
+            <form action="{{url_for('pageCreator')}}">
+                <input type="submit" value="Build Website">
+            </form>
+            <form action="{{url_for('pageCreator')}}">
+                <input type="submit" value="Log In">
+            </form>
+            <form action="{{url_for('pageCreator')}}">
+                <input type="submit" value="Create Account">
+            </form>
+        </div>
     </div>
 </main>
 {% endblock %}

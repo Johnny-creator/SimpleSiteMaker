@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{fullName}</title>
+    <title>Test User</title>
     <style>
-        * {{
+        * {
             padding: 0; margin: 0;
             box-sizing: border-box;
             overflow-x: hidden;
-        }}
+        }
 
-        body {{
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
             background-color: cornflowerblue;
             line-height: 1.5;
-        }}
+        }
 
-        header {{
+        header {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100vw;
             height: 500px;
-        }}
+        }
 
-        main {{
+        main {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,18 +37,18 @@
             width: 95%;
             max-width: 1200px;
             margin-bottom: 60px;;
-        }}
+        }
 
-        main p {{
+        main p {
             width: 90%;
             max-width: 600px;
-        }}
+        }
 
-        main p {{
+        main p {
             margin-bottom: 40px;
-        }}
+        }
 
-        main nav {{
+        main nav {
             width: 100%;
             display: flex;
             justify-content: space-around;
@@ -56,58 +56,58 @@
             height: 50px;
             background-color: rgb(215, 222, 228);
             margin-bottom: 40px; 
-        }}
+        }
 
-        main nav a {{
+        main nav a {
             color: black;
             text-decoration: none;
             font-weight: bold;
             font-size: 1.25em;
-        }}
+        }
 
-        main div {{
+        main div {
             display: flex;
             flex-direction: column;
             justify-content: left;
-        }}
+        }
 
-        main .sectTitle {{
+        main .sectTitle {
             width: fit-content;
             border-bottom: 3px solid blue;
             margin-bottom: 10px;
-        }}
+        }
     </style>
 </head>
 <body>
 
     <header>
         <img src="userImage.jpg" width="300">
-        <h1>{fullName}</h1>
+        <h1>Test User</h1>
     </header>
 
     <main>
         <nav>
-            <a href="#firstSect">{firstSect}</a>
-            <a href="#secondSect">{secondSect}</a>
-            <a href="#thirdSect">{thirdSect}</a>
-            <a href="#fourthSect">{fourthSect}</a>
+            <a href="#firstSect">About Me</a>
+            <a href="#secondSect">My Projects</a>
+            <a href="#thirdSect">Test 3</a>
+            <a href="#fourthSect">Test 4</a>
         </nav>
 
         <div id="firstSect">
-            <h3 class="sectTitle">{firstSect}</h3>
-            <p>{firstText}</p>
+            <h3 class="sectTitle">About Me</h3>
+            <p>I am a test user</p>
         </div>
         <div id="secondSect">
-            <h3 class="sectTitle">{secondSect}</h3>
-            <p>{secondText}</p>
+            <h3 class="sectTitle">My Projects</h3>
+            <p>I have not made any projects</p>
         </div>
         <div id="thirdSect">
-            <h3 class="sectTitle">{firstSect}</h3>
-            <p>{thirdText}</p>
+            <h3 class="sectTitle">About Me</h3>
+            <p>Getting it to work</p>
         </div>
         <div id="fourthSect">
-            <h3 class="sectTitle">{firstSect}</h3>
-            <p>{fourthText}</p>
+            <h3 class="sectTitle">About Me</h3>
+            <p>Another section</p>
         </div>
     </main>
 

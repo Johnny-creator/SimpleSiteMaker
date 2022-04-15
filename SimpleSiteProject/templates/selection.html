@@ -9,18 +9,14 @@
 <main>
     <div>
         <div id="flex">
-            <div class="formGroup">
-                <form action="{{url_for('viewPage')}}" target="_blank">
-                    <input type="submit" value="View page in Web Browser">
-                </form>
+            <div>
+                <div class="formGroup">
+                    <form action="{{url_for('downloadPage')}}">
+                        <input type="submit" value="Download the HTML file">
+                        <p><a href="{{url_for('index')}}"> Go back home </a></p>
+                    </form>
+                </div>
             </div>
-
-            <div class="formGroup">
-                <form action="{{url_for('downloadPage')}}">
-                    <input type="submit" value="Download the HTML file">
-                </form>
-            </div>
-            <p><a href="{{url_for('index')}}"> Cancel </a></p>
         </div>
     </div>
 </main>

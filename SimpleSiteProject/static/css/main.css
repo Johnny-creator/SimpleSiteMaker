@@ -3,6 +3,14 @@ body {
   color: var(--textColour);
 }
 
+footer {
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 header {
   background-color: #222f3e;
   display: flex;

@@ -61,21 +61,21 @@ def pageCreator():
         newWebsite.close()
 
         if current_user.is_authenticated:
-            os.chdir("SimpleSiteProject\\siteStorage\\" + str(current_user.id) + "-sites" )
+            os.chdir("SimpleSiteProject/siteStorage/" + str(current_user.id) + "-sites" )
             
             try:
                 with ZipFile(session["fullName1"].replace(" ", "") + ".zip", "w") as zipSite:
-                    for folderName, subfolders, filenames in os.walk("C:\\Users\\Sheldon\\Documents\\SimpleSiteMaker\\SimpleSiteProject\\templates\\tempSiteStorage\\" + session["fullName1"].replace(" ", "")):
+                    for folderName, subfolders, filenames in os.walk("/home/admin/SimpleSiteMaker/SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", "")):
                         print(os.getcwd())
                         for filename in filenames:
                             filePath = os.path.join(folderName, filename)                            
                             zipSite.write(filePath, basename(filePath))
             except:
                 # Remove original file
-                os.remove("..\\" + session["fullName1"].replace(" ", "") + ".zip")
+                os.remove("../" + session["fullName1"].replace(" ", "") + ".zip")
 
             # Reset Directory
-            os.chdir("..\\..\\..")
+            os.chdir("../../..")
             
 
         return redirect(url_for("results"))
@@ -135,9 +135,9 @@ def createUser():
         db.session.add(user)
         db.session.commit()
 
-        os.chdir("SimpleSiteProject\\siteStorage")
+        os.chdir("SimpleSiteProject/siteStorage")
         os.mkdir(user.get_id() + "-sites")
-        os.chdir("..\\..")
+        os.chdir("../..")
         print(os.listdir())
 
         flash("Thanks for registering!")
@@ -148,27 +148,27 @@ def createUser():
 def downloadPage():
     try:
         with ZipFile(session["fullName1"].replace(" ", "") + ".zip", "w") as zipSite:
-            for folderName, subfolders, filenames in os.walk("SimpleSiteProject\\templates\\tempSiteStorage\\" + session["fullName1"].replace(" ", "")):
+            for folderName, subfolders, filenames in os.walk("SimpleSiteProject/templates/tempSiteStorage/" + session["fullName1"].replace(" ", "")):
                 for filename in filenames:
                     filePath = os.path.join(folderName, filename)
                     zipSite.write(filePath, basename(filePath))
     except:
         # Remove original file
-        os.remove("..\\" + session["fullName1"].replace(" ", "") + ".zip")
+        os.remove("../" + session["fullName1"].replace(" ", "") + ".zip")
 
-    return send_file("..\\" + session["fullName1"].replace(" ", "") + ".zip", as_attachment=True)
+    return send_file("../" + session["fullName1"].replace(" ", "") + ".zip", as_attachment=True)
 
 
 @app.route("/userFiles")
 def userFiles():
-    dirPath = "C:\\Users\\Sheldon\\Documents\\SimpleSiteMaker\\SimpleSiteProject\\siteStorage\\" + str(current_user.id) + "-sites"
+    dirPath = "/home/admin/SimpleSiteMaker/SimpleSiteProject/siteStorage/" + str(current_user.id) + "-sites"
     files = os.listdir(dirPath)
 
     return render_template("userFiles.html", path=dirPath, files=files)
 
 @app.route("/userDownload/<selectedFile>")
 def userDownload(selectedFile):
-    dirPath = "C:\\Users\\Sheldon\\Documents\\SimpleSiteMaker\\SimpleSiteProject\\siteStorage\\" + str(current_user.id) + "-sites\\"
+    dirPath = "/home/admin/SimpleSiteMaker/SimpleSiteProject/siteStorage/" + str(current_user.id) + "-sites/"
     
     file = selectedFile
     return send_file(dirPath + file, as_attachment=True)

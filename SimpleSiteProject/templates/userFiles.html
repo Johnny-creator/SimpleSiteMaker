@@ -3,10 +3,11 @@
 {% block content %}
 
 {% for file in files %}
-<div style="display: flex;">
+<div style="display: flex; justify-content: space-around;">
     <p>{{ file }}</p>
     <a href="{{url_for('userDownload', selectedFile=file)}}">Download</a>
 </div>
+<hr>
 {% endfor %}
 
 
