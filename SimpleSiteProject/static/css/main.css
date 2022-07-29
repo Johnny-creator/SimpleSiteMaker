@@ -61,21 +61,4 @@ form {
   border-radius: 1em;
 }
 
-input {
-  border-radius: 1em;
-  margin: 10px;
-}
 
-input:hover {
-  background-color: lightblue;
-  transition: 0.5s;
-}
-
-button { 
-  border-radius: 1em;
-}
-
-button:hover {
-  background-color: lightblue;
-  transition: 0.5s;
-}
