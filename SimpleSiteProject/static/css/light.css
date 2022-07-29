@@ -2,3 +2,27 @@
   --backgroundColour: #eee;
   --textColour: black;
 }
+
+input {
+  border-radius: 1em;
+  border-color: black;
+  margin: 10px;
+  box-shadow: 0px 0px 15px black, inset 0px 0px 5px black;
+  color:  black;
+  transition: 0.5s;
+  background-color: transparent;
+}
+
+input:hover {
+  background-color: lightblue;
+  
+}
+
+button { 
+  border-radius: 1em;
+  transition: 0.5s;
+}
+
+button:hover {
+  background-color: lightblue;
+}
